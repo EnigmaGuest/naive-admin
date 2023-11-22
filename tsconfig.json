@@ -19,9 +19,10 @@
     "paths": {
       "~/*": ["./*"],
       "@/components": ["./src/components"],
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"]
     },
     "types": ["vite/client", "node", "unplugin-icons/types/vue", "naive-ui/volar"]
   },
+//  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "exclude": ["node_modules", "dist"]
 }

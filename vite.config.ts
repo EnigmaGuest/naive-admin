@@ -1,37 +1,29 @@
-import {defineConfig} from 'vite'
-import vue from '@vitejs/plugin-vue'
-import UnoCSS from 'unocss/vite'
-import Components from 'unplugin-vue-components/vite';
-import {NaiveUiResolver} from "unplugin-vue-components/resolvers";
+import {defineConfig, loadEnv} from 'vite'
 import {getRootPath, getSrcPath} from "./build";
+import {createVitePlugins} from "./build/plugins";
+
 // https://vitejs.dev/config/
 
 
 const rootPath = getRootPath();
 const srcPath = getSrcPath();
-// 插件
-const plugins = [
-    vue(),
-    UnoCSS(),
-    Components({
-        dts: 'src/typings/components.d.ts',
-        resolvers: [
-            NaiveUiResolver(),
-        ]
-    }),
-]
 
-export default defineConfig({
-    resolve: {
-        alias: {
-            '~': rootPath,
-            '@': srcPath,
+
+export default defineConfig(({command, mode}) => {
+    const viteEnv = loadEnv(mode, process.cwd()) as unknown as ImportMetaEnv;
+    return {
+        base: viteEnv.VITE_BASE_URL,
+        resolve: {
+            alias: {
+                '~': rootPath,
+                '@': srcPath,
+            }
+        },
+        plugins: createVitePlugins(viteEnv),
+        server: {
+            host: '0.0.0.0',
+            port: 8000,
+            open: true
         }
-    },
-    plugins: plugins,
-    server: {
-        host: '0.0.0.0',
-        port: 8000,
-        open: true
     }
 })

@@ -1,15 +1,18 @@
-import { createApp } from 'vue'
-import './style.scss'
+import {createApp} from 'vue'
 import App from './App.vue'
-import 'virtual:uno.css'
-import {router} from "@/router";
-
+import {setupRouter} from "@/router";
+import {setupAssets} from "@/init";
 
 
 async function initApp() {
     const app = createApp(App);
-    app.use(router);
+    // 引入unocss css
+    setupAssets();
+
+    await setupRouter(app);
+
     app.mount('#app')
 }
+
 void initApp()
 
