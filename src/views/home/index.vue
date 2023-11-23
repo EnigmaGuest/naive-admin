@@ -1,14 +1,11 @@
 <template>
-  <div>
-    <p class="text-xl ">nihao</p>
-    <n-space vertical>
-      <n-button>点击</n-button>
-      <n-switch></n-switch>
-    </n-space>
-  </div>
+  <layout>
+
+  </layout>
 </template>
 <script setup lang="ts">
 
+import Layout from "@/layouts/index.vue";
 </script>
 
 <style scoped>

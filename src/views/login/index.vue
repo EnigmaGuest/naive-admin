@@ -5,7 +5,8 @@
         <div class="text-2xl text-blue">123</div>
       </n-grid-item>
       <n-grid-item span="0 400:5 600:5 800:5 1000:3">
-        <icon-local-banner class="text-200 text-blue"  />
+<!--        <icon-local-banner class="text-200 text-blue"  />-->
+        <icon-local-logo class="text-48px "  />
       </n-grid-item>
     </n-grid>
   </div>

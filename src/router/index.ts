@@ -1,26 +1,31 @@
 import {createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw} from "vue-router";
 import {App} from "vue";
 import {constantRoutes} from "@/router/common";
+import {PageRoute} from "@/typings/route";
+import {createRouterGuard} from "@/router/guard";
 
-const {  VITE_BASE_URL } = import.meta.env;
+const {VITE_BASE_URL} = import.meta.env;
 
-const routes: RouteRecordRaw[] = [
-    {
-        path: "/",
-        redirect: "/home"
-    }, {
-        path: '/home',
-        name: 'home',
-        component: () => import('@/views/home/index.vue'),
-    }]
 export const router = createRouter({
-    // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
     history: createWebHistory(VITE_BASE_URL),
     routes: constantRoutes, // `routes: routes` 的缩写
+    strict: true,
+    scrollBehavior: () => ({left: 0, top: 0}),
 })
 
 export async function setupRouter(app: App) {
+     routeModuleList.forEach((item: PageRoute) => {
+        router.addRoute(item);
+    })
     app.use(router);
-    // createRouterGuard(router);
+    createRouterGuard(router);
     await router.isReady();
 }
+
+// 加载需要验证的路由
+const modules = import.meta.glob<any>('./modules/**/*.ts', {eager: true});
+export const routeModuleList: any = Object.keys(modules).reduce((list: any, key) => {
+    const mod: PageRoute | PageRoute[] = modules[key].default ?? {};
+    const modList = Array.isArray(mod) ? [...mod] : [mod];
+    return [...list, ...modList];
+}, [])
