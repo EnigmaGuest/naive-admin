@@ -15,13 +15,13 @@ import IconsResolver from 'unplugin-icons/resolver';
  *
  */
 export function createVitePlugins(viteEnv: ImportMetaEnv) {
-    const {VITE_ICON_PREFIX, VITE_ICON_LOCAL_PREFIX,VITE_ICON_LOCAL_PATH} = viteEnv;
+    const {VITE_ICON_PREFIX, VITE_ICON_LOCAL_PREFIX, VITE_ICON_LOCAL_PATH} = viteEnv;
 
     const srcPath = path.resolve(process.cwd(), 'src');
     // 本地svg图标路径
     const localIconPath = `${srcPath}${VITE_ICON_LOCAL_PATH}`;
     /** 本地svg图标集合名称 */
-    const collectionName = "icon-local".replace(`icon-`, '');
+    const collectionName = VITE_ICON_LOCAL_PREFIX.replace(`${VITE_ICON_PREFIX}-`, '');
     const vitePlugins: (Plugin | Plugin[] | PluginOption[])[] = [
         vue(),
         UnoCSS(),
@@ -35,6 +35,14 @@ export function createVitePlugins(viteEnv: ImportMetaEnv) {
     ]
 
     vitePlugins.push(
+        createSvgIconsPlugin({
+            iconDirs: [localIconPath],
+            symbolId: `${VITE_ICON_LOCAL_PREFIX}-[dir]-[name]`,
+            inject: 'body-last',
+            customDomId: '__SVG_ICON_LOCAL__'
+        })
+    )
+    vitePlugins.push(
         Icons({
             compiler: 'vue3',
             customCollections: {
@@ -44,13 +52,7 @@ export function createVitePlugins(viteEnv: ImportMetaEnv) {
             },
             scale: 1,
             defaultClass: 'inline-block'
-        }))
-    vitePlugins.push(
-        createSvgIconsPlugin({
-            iconDirs: [localIconPath],
-            symbolId: `${VITE_ICON_LOCAL_PREFIX}-[dir]-[name]`,
-            inject: 'body-last',
-            customDomId: '__SVG_ICON_LOCAL__'
-        }))
+        })
+    )
     return vitePlugins;
 }

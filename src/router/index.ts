@@ -3,6 +3,7 @@ import {App} from "vue";
 import {constantRoutes} from "@/router/common";
 import {PageRoute} from "@/typings/route";
 import {createRouterGuard} from "@/router/guard";
+import {useAuthStore} from "@/store";
 
 const {VITE_BASE_URL} = import.meta.env;
 
@@ -14,11 +15,8 @@ export const router = createRouter({
 })
 
 export async function setupRouter(app: App) {
-     routeModuleList.forEach((item: PageRoute) => {
-        router.addRoute(item);
-    })
     app.use(router);
-    createRouterGuard(router);
+    await createRouterGuard(router);
     await router.isReady();
 }
 

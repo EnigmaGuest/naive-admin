@@ -1,11 +1,15 @@
 <template>
   <n-layout :position="position" class="layout" has-sider>
-    <n-layout-sider show-trigger="bar" class="layout-side "
-                    :collapsed-width="64"
-                    :collapsed="collapsed"
-                    collapse-mode="width"
-                    :position="position" @collapse="collapsed=true"
-                    @expand="collapsed = false">
+    <n-layout-sider
+        class="layout-side"
+        :collapsed-width="64"
+        :collapsed="collapsed"
+        collapse-mode="width"
+        :width="240"
+        show-trigger="bar"
+        :position="position"
+        @collapse="collapsed=true"
+        @expand="collapsed = false">
       <page-logo :collapsed="collapsed"/>
       <page-menu :collapsed="collapsed"/>
     </n-layout-sider>
@@ -14,12 +18,8 @@
       <PageHeader/>
       <n-layout-content class="layout-content bg-#f5f7f9 dark:bg-#101014">
         <div class="layout-content-main">
-          <div class="h-48px">123</div>
-          <page-content>
-            <div class="main-view h-500 w-full bg-#fff">456</div>
-
-            <n-back-top :right="100"/>
-          </page-content>
+          <page-tags/>
+          <page-content/>
         </div>
       </n-layout-content>
     </n-layout>
@@ -31,14 +31,14 @@
 import PageLogo from "@/layouts/components/page-logo.vue";
 
 defineOptions({name: 'BaseLayout'})
-// 生成菜单
 import {reactive, ref} from "vue";
 import PageHeader from "@/layouts/components/page-header.vue";
 import PageMenu from "@/layouts/components/page-menu.vue";
 import PageContent from "@/layouts/components/page-content.vue";
+import PageTags from "@/layouts/components/page-tags.vue";
 
 const position = ref("absolute")
-const collapsed = ref<boolean>(true);
+const collapsed = ref<boolean>(false);
 </script>
 
 <style scoped lang="scss">

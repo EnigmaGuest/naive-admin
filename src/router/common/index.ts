@@ -20,6 +20,29 @@ export const constantRoutes: PageRoute[] = [
         meta: {
             title: '登录',
         },
+    },
+    {
+        name: 'comm',
+        path: '/comm',
+        component: ()=> import('@/layouts/index.vue'),
+        meta: {
+            title: '未找到'
+        },
+        children: [
+            {
+                name: '404',
+                path: '/404',
+                component: ()=> import('@/views/comm/404.vue'),
+                meta: {
+                    title: '未找到'
+                },
+            }
 
+        ]
+    },
+    {
+        name: 'not-found',
+        path: '/:path(.*)*',
+        component: ()=> import('@/views/comm/404.vue')
     }
 ]

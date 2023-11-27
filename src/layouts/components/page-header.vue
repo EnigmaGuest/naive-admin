@@ -1,5 +1,8 @@
 <template>
-  <div class="page-header bg-#ffffff dark:bg-#000000d9 shadow">123</div>
+  <div class="page-header bg-#ffffff dark:bg-#000000d9 ">
+    <div>头部面包屑</div>
+    <div>头像</div>
+  </div>
 </template>
 <script setup lang="ts">
 
@@ -17,8 +20,9 @@
   top: 0;
   left: 10px;
   width: calc(100% - 20px);
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
   padding: 0 10px;
 
   &-left {
