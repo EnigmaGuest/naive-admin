@@ -46,12 +46,12 @@ export const useRouteStore = defineStore({
         /** 重置路由数据，保留固定路由 */
         resetRoutes() {
             // 模块路由
-            this.dynamicRoutes?.forEach(route => {
+            this.dynamicRoutes?.forEach((route: any) => {
                 router.removeRoute(route.name);
             });
         },
         handleRoute(routes:PageRoute[]) {
-            routes.forEach(route => {
+            routes.forEach((route: any) => {
                 router.addRoute(route)
             })
         },

@@ -17,6 +17,7 @@ const router: PageRoute =
                 meta: {
                     title: '首页',
                     icon: 'mdi:monitor-dashboard',
+                    affix: true,
                 },
                 component: () => import('@/views/home/index.vue'),
             },

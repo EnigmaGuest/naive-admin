@@ -1,8 +1,9 @@
 import {PageRoute} from "@/typings/route";
-const {  VITE_ROUTE_HOME_PATH } = import.meta.env;
+
+const {VITE_ROUTE_HOME_PATH} = import.meta.env;
 
 /** 根路由 */
-export const ROOT_ROUTE:PageRoute = {
+export const ROOT_ROUTE: PageRoute = {
     name: 'root',
     path: '/',
     redirect: VITE_ROUTE_HOME_PATH,
@@ -16,7 +17,7 @@ export const constantRoutes: PageRoute[] = [
     {
         name: 'login',
         path: '/login',
-        component: ()=> import('@/views/login/index.vue'),
+        component: () => import('@/views/login/index.vue'),
         meta: {
             title: '登录',
         },
@@ -24,7 +25,7 @@ export const constantRoutes: PageRoute[] = [
     {
         name: 'comm',
         path: '/comm',
-        component: ()=> import('@/layouts/index.vue'),
+        component: () => import('@/layouts/index.vue'),
         meta: {
             title: '未找到'
         },
@@ -32,7 +33,7 @@ export const constantRoutes: PageRoute[] = [
             {
                 name: '404',
                 path: '/404',
-                component: ()=> import('@/views/comm/404.vue'),
+                component: () => import('@/views/comm/404.vue'),
                 meta: {
                     title: '未找到'
                 },
@@ -43,6 +44,9 @@ export const constantRoutes: PageRoute[] = [
     {
         name: 'not-found',
         path: '/:path(.*)*',
-        component: ()=> import('@/views/comm/404.vue')
+        meta: {
+            title: '未找到'
+        },
+        component: () => import('@/views/comm/404.vue')
     }
 ]

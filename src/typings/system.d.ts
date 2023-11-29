@@ -10,6 +10,7 @@ declare namespace System {
         icon?: () => import('vue').VNodeChild;
         children?: GlobalMenu[];
     }
+
 }
 // Desc: 主题相关的类型定义
 declare namespace Theme {

@@ -1,5 +1,5 @@
 <template>
-  <n-layout :position="position" class="layout" has-sider>
+  <n-layout :position="'absolute'" class="layout" has-sider>
     <n-layout-sider
         class="layout-side"
         :collapsed-width="64"
@@ -7,7 +7,7 @@
         collapse-mode="width"
         :width="240"
         show-trigger="bar"
-        :position="position"
+        :position="'absolute'"
         @collapse="collapsed=true"
         @expand="collapsed = false">
       <page-logo :collapsed="collapsed"/>
@@ -18,7 +18,7 @@
       <PageHeader/>
       <n-layout-content class="layout-content bg-#f5f7f9 dark:bg-#101014">
         <div class="layout-content-main">
-          <page-tags/>
+          <page-tabs/>
           <page-content/>
         </div>
       </n-layout-content>
@@ -35,9 +35,8 @@ import {reactive, ref} from "vue";
 import PageHeader from "@/layouts/components/page-header.vue";
 import PageMenu from "@/layouts/components/page-menu.vue";
 import PageContent from "@/layouts/components/page-content.vue";
-import PageTags from "@/layouts/components/page-tags.vue";
+import PageTabs from "@/layouts/components/page-tabs.vue";
 
-const position = ref("absolute")
 const collapsed = ref<boolean>(false);
 </script>
 

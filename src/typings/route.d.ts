@@ -47,7 +47,7 @@ interface IRouteMeta extends RouteMeta {
     href?: string;
     permission?: string;
     /** 路由顺序，可用于菜单的排序 */
-    order: number;
+    order?: number;
     /** 当前路由需要选中的菜单项(用于跳转至不在左侧菜单显示的路由且需要高亮某个菜单的情况) */
     activeMenu?: string;
     /** 是否固定在tab卡不可关闭  */
