@@ -1,6 +1,7 @@
 import {PageRoute} from "@/typings/route";
 import {defineStore} from "pinia";
 import {constantRoutes} from "@/router/common";
+import {SecureStorage} from "@/store/plugins";
 
 
 export const useTabsStore = defineStore({
@@ -52,5 +53,7 @@ export const useTabsStore = defineStore({
         },
 
     },
-    persist: true
+    persist: {
+        storage: SecureStorage
+    }
 })

@@ -6,22 +6,21 @@
     <div class="tabs-view-main">
       <div ref="tabsWrap" class="tabs-line " :class="{'tabs-line-scroll--ed':state.scrollable}">
         <div class="tabs-line-left bg-#f5f7f9  text-#666 dark:text-#999" @click="scrollLeft" v-if="state.scrollable">
-          <icon-solar:alt-arrow-left-linear/>
+          <icon-line-md:chevron-left/>
         </div>
         <div class="tabs-line-right bg-#f5f7f9 text-#666 dark:text-#999" @click="scrollRight" v-if="state.scrollable">
-          <icon-solar:alt-arrow-right-linear/>
+          <icon-line-md:chevron-right/>
         </div>
         <div class="tabs-line-scroll " ref="tabsScroll">
           <!--     拖动     -->
           <Draggable :list="tabsList" animation="300" item-key="fullPath" class="flex">
             <template #item="{element}">
               <div class="tabs-line-scroll-item bg-#fff dark:bg-#333 flex items-center"
-                   :id="`tab_item_${element.name}`">
-                <div class="h-32px flex items-center justify-center" @click.stop="onTagClick(element)"
-                     @contextmenu="onContextMenu($event, element)">
+                   :id="`tab_item_${element.name}`" @click.stop="onTagClick(element)" @contextmenu="onContextMenu($event, element)">
+                <div class="h-32px flex items-center justify-center"  >
                   <span class="lh-14px text-14px "
-                        :class="{'text-blue':state.activeTag==element.name}">{{ element.meta.title }}</span>
-                  <icon-ri:close-fill class="text-20px  mr--6px  text-#999" v-if="!element.meta?.affix"
+                        :class="{'text-primary':state.activeTag==element.name}">{{ element.meta.title }}</span>
+                  <icon-line-md:close class="text-14px ml-2px mr--6px  text-#999" v-if="!element.meta?.affix"
                                       @click.stop="onCloseTabs(element)"/>
                 </div>
               </div>
@@ -48,12 +47,12 @@
 </template>
 <script setup lang="ts">
 import Draggable from 'vuedraggable'
-import {computed, nextTick, onMounted, reactive, ref, unref, watch} from "vue";
+import {computed, inject, nextTick, onMounted, reactive, ref, unref, watch} from "vue";
 import {PageRoute} from "@/typings/route";
 import {useRoute, useRouter} from "vue-router";
 import elementResizeDetectorMaker from "element-resize-detector";
 import {renderIcon} from "@/utils";
-import {useTabsStore} from "@/store/modules/tabs";
+import {useTabsStore} from "@/store";
 
 const ut = useTabsStore()
 const tabsList = computed(() => ut.tabList);
@@ -68,6 +67,7 @@ const state = reactive({
   dropdownY: 0,
   showDropdown: false,
   scrollable: false,
+  currentTab: null,
 })
 const pageIsAffix = ref(false)
 // 展开操作key
@@ -81,13 +81,12 @@ const route2PageRoute = (route: any): PageRoute => {
   }
 }
 const onDropdownClick = (key: ExpandKey) => {
-
   switch (key) {
     case 'refresh':
       refreshTabs()
       break;
     case 'close':
-      closeCurrentTabs(route2PageRoute(route))
+      closeCurrentTabs(state.currentTab??route2PageRoute(route))
       break;
     case 'closeOther':
       closeOtherTabs(route2PageRoute(route))
@@ -105,24 +104,24 @@ const tabsMenuOptions = computed(() => {
     {
       label: '刷新页面',
       key: 'refresh',
-      icon: renderIcon('solar:refresh-circle-broken'),
+      icon: renderIcon('line-md:backup-restore'),
     },
     {
       label: '关闭当前',
       key: 'close',
       disabled: isDisabled || pageIsAffix.value,
-      icon: renderIcon('ri:close-line'),
+      icon: renderIcon('line-md:close-circle'),
     },
     {
       label: '关闭其他',
       key: 'closeOther',
       disabled: isDisabled,
-      icon: renderIcon('ri:close-circle-line'),
+      icon: renderIcon('line-md:close-circle'),
     },
     {
       label: '关闭所有',
       key: 'closeAll',
-      icon: renderIcon('ri:close-circle-line'),
+      icon: renderIcon('line-md:close-circle'),
     },
   ]
 
@@ -137,6 +136,7 @@ const onContextMenu = (e: MouseEvent, tab: PageRoute) => {
   e.stopPropagation();
   pageIsAffix.value = tab.meta?.affix
   state.showDropdown = false;
+  state.currentTab = tab;
   nextTick().then(() => {
     state.showDropdown = true;
     state.dropdownX = e.clientX;
@@ -147,10 +147,10 @@ const onContextMenu = (e: MouseEvent, tab: PageRoute) => {
 const onCloseTabs = (tag: PageRoute) => {
   closeCurrentTabs(tag)
 }
+
+const reload = inject('reload') as any
 const refreshTabs = () => {
-  console.log('刷新')
-  // 刷新页面
-  router.replace({name: route.name})
+  reload && reload()
   updateTabsScroll()
 }
 const closeCurrentTabs = (page: PageRoute) => {
@@ -158,7 +158,7 @@ const closeCurrentTabs = (page: PageRoute) => {
   ut.closeCurrentTab(page)
   // 关闭的当前页跳转到上一页
   if (page.name === state.activeTag) {
-    const preTab = ut.tabList[Math.max(0,ut.tabList.length- 1)]
+    const preTab = ut.tabList[Math.max(0, ut.tabList.length - 1)]
     router.push({name: preTab.name})
   }
   updateTabsScroll()
@@ -189,7 +189,7 @@ async function updateTabsScroll(autoScroll = false) {
         }
       });
     }
-  }else {
+  } else {
     state.scrollable = false;
   }
 }
@@ -268,7 +268,6 @@ window.addEventListener('scroll', onScroll, true)
   width: 100%;
   padding: 6px 0;
   display: flex;
-  transition: all 0.2s ease-in-out;
 
   &-main {
     height: 32px;
@@ -343,6 +342,9 @@ window.addEventListener('scroll', onScroll, true)
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.tag-active-bg{
+  background-color: var(--n-color)
 }
 
 

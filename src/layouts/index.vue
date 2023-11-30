@@ -3,22 +3,24 @@
     <n-layout-sider
         class="layout-side"
         :collapsed-width="64"
-        :collapsed="collapsed"
+        :collapsed="theme.collapsed"
         collapse-mode="width"
         :width="240"
         show-trigger="bar"
         :position="'absolute'"
-        @collapse="collapsed=true"
-        @expand="collapsed = false">
-      <page-logo :collapsed="collapsed"/>
-      <page-menu :collapsed="collapsed"/>
+        @collapse="theme.setThemeCollapsed(true)"
+        @expand="theme.setThemeCollapsed(false)">
+      <page-logo :collapsed="theme.collapsed"/>
+      <page-menu :collapsed="theme.collapsed"/>
     </n-layout-sider>
 
     <n-layout>
-      <PageHeader/>
+      <page-header :collapsed="theme.collapsed" @update:collapsed="theme.setThemeCollapsed"/>
       <n-layout-content class="layout-content bg-#f5f7f9 dark:bg-#101014">
         <div class="layout-content-main">
+          <!--标签页-->
           <page-tabs/>
+          <!--内容-->
           <page-content/>
         </div>
       </n-layout-content>
@@ -27,17 +29,16 @@
 </template>
 <script setup lang="ts">
 
-
-import PageLogo from "@/layouts/components/page-logo.vue";
+import {useThemeStore} from "@/store";
 
 defineOptions({name: 'BaseLayout'})
-import {reactive, ref} from "vue";
-import PageHeader from "@/layouts/components/page-header.vue";
-import PageMenu from "@/layouts/components/page-menu.vue";
-import PageContent from "@/layouts/components/page-content.vue";
-import PageTabs from "@/layouts/components/page-tabs.vue";
+import PageLogo from "@/layouts/components/logo/index.vue";
+import PageHeader from "@/layouts/components/header/index.vue";
+import PageMenu from "@/layouts/components/menu/index.vue";
+import PageContent from "@/layouts/components/content/index.vue";
+import PageTabs from "@/layouts/components/tabs/index.vue";
 
-const collapsed = ref<boolean>(false);
+const theme = useThemeStore()
 </script>
 
 <style scoped lang="scss">
@@ -55,7 +56,6 @@ const collapsed = ref<boolean>(false);
     box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
     position: relative;
     z-index: 13;
-    transition: all 0.2s ease-in-out;
   }
 
   .layout-side-fix {
@@ -72,7 +72,6 @@ const collapsed = ref<boolean>(false);
     overflow-x: hidden;
     padding-left: 200px;
     min-height: 100vh;
-    transition: all 0.2s ease-in-out;
   }
 
   .layout-content {

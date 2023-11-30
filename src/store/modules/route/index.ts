@@ -3,6 +3,7 @@ import {routeModuleList, router} from "@/router";
 import {useAuthStore} from "@/store";
 import {PageRoute} from "@/typings/route";
 import {generateMenus, renderIcon} from "@/utils";
+import {System} from "@/typings/system";
 
 interface RouteState {
 

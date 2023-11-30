@@ -3,6 +3,7 @@
           :value="activeKey"
           :expanded-keys="expandedKeys"
           accordion
+          :mode="props.mode"
           :collapsed="props.collapsed"
           :options="menuOptions"
           :collapsed-icon-size="24"
@@ -13,9 +14,10 @@
           show-trigger/>
 </template>
 <script setup lang="ts">
-import {computed, h, reactive, ref, watch} from "vue";
-import {useRouteStore} from "@/store/modules/route";
+import {computed, h, PropType, reactive, ref, watch} from "vue";
+import {useRouteStore} from "@/store";
 import {useRoute, useRouter} from "vue-router";
+import {System} from "@/typings/system";
 
 const menuOptions = useRouteStore().menus
 
@@ -29,11 +31,18 @@ const props = defineProps({
     // 侧边栏菜单是否收起
     type: Boolean,
   },
+  mode:{
+    type: String as PropType<"vertical" | "horizontal">,
+    default: 'vertical',
+  }
 })
-// 菜单点击
-const clickMenuItem = (key: string, item: any) => {
-  if(router.currentRoute.value.name !== key){
-    router.push({name: key})
+// 菜单点击 todo iframe 内部网页
+const clickMenuItem = (key: string, item: System.GlobalMenu) => {
+  if (item.component == 'iframe'){
+  }else {
+    if(router.currentRoute.value.name !== key){
+      router.push({name: key})
+    }
   }
 }
 // 菜单展开
@@ -61,12 +70,12 @@ const getActiveKeyPathsOfMenus = (activeKey: string, menus: System.GlobalMenu[])
 };
 
 watch(
-  () => route.name,
-  () => {
-    expandedKeys.value = getActiveKeyPathsOfMenus(activeKey.value, menuOptions);
+    () => route.name,
+    () => {
+      expandedKeys.value = getActiveKeyPathsOfMenus(activeKey.value, menuOptions);
 
-  },
-  { immediate: true }
+    },
+    { immediate: true }
 );
 // updateMenu()
 </script>

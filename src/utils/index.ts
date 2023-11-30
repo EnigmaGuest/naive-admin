@@ -1,6 +1,7 @@
 import {h} from "vue";
 import EgIcon from "@/components/common/eg-icon.vue";
 import {PageRoute} from "@/typings/route";
+import {System} from "@/typings/system";
 
 
 // 渲染icon
@@ -24,6 +25,8 @@ export const generateMenus = (pages:PageRoute[]) => {
                 icon: renderIcon(page.meta.icon, page.meta.localIcon),
                 routeName: page.name,
                 routePath: page.path,
+                meta: page.meta,
+                component: page.component,
             }
             // 判断是否只有一个子菜单
             const isRoot = page?.children?.filter((item: PageRoute) => !Boolean(item?.meta?.hide))?.length === 1;
@@ -34,6 +37,7 @@ export const generateMenus = (pages:PageRoute[]) => {
                 globalMenu.label = rootMenu.meta?.title
                 globalMenu.routeName = rootMenu.name
                 globalMenu.routePath = rootMenu.path
+                globalMenu.component = rootMenu.component
                 globalMenu.icon = renderIcon(rootMenu.meta?.icon, rootMenu.meta?.localIcon)
             }else {
                 // 如果有多个子菜单，那么就显示父级菜单（是过滤隐藏后的）
@@ -41,7 +45,11 @@ export const generateMenus = (pages:PageRoute[]) => {
                     return {
                         label: item.meta?.title,
                         key: item.name,
-                        icon: renderIcon(item.meta?.icon, item.meta?.localIcon)
+                        icon: renderIcon(item.meta?.icon, item.meta?.localIcon),
+                        routeName: item.name,
+                        routePath: item.path,
+                        component: item.component,
+                        meta: page.meta,
                     }
                 })
             }
@@ -50,3 +58,4 @@ export const generateMenus = (pages:PageRoute[]) => {
     })
     return menuOptions
 }
+export * from './color'
