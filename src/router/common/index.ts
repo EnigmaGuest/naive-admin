@@ -11,6 +11,10 @@ export const ROOT_ROUTE: PageRoute = {
         title: 'Root'
     }
 }
+export  const basicLayout = () => import('@/layouts/index.vue')
+export  const blankLayout = () => import('@/layouts/blank.vue')
+export  const iframeLayout = () => import('@/layouts/iframe.vue')
+
 /** 固定的路由 */
 export const constantRoutes: PageRoute[] = [
     ROOT_ROUTE,
@@ -25,7 +29,7 @@ export const constantRoutes: PageRoute[] = [
     {
         name: 'comm',
         path: '/comm',
-        component: () => import('@/layouts/index.vue'),
+        component: () => basicLayout(),
         meta: {
             title: '未找到'
         },

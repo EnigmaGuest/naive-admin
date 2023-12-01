@@ -1,5 +1,6 @@
 // Desc: 系统相关的类型定义
 import {IRouteMeta, RouteComponentType} from "@/typings/route";
+import {RouteComponent} from "vue-router";
 
 declare namespace System {
 
@@ -10,7 +11,7 @@ declare namespace System {
         routeName: string;
         routePath: string;
         meta: IRouteMeta;
-        component?: RouteComponentType;
+        component: RouteComponent;
         icon?: () => import('vue').VNodeChild;
         children?: GlobalMenu[];
     }

@@ -1,6 +1,4 @@
 import {defineConfig, presetUno, presetAttributify} from 'unocss';
-import presetRemToPx from "@unocss/preset-rem-to-px";
-import transformerDirectives from '@unocss/transformer-directives';
 export default defineConfig({
     content: {
         pipeline: {

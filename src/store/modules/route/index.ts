@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 import {routeModuleList, router} from "@/router";
 import {useAuthStore} from "@/store";
 import {PageRoute} from "@/typings/route";
-import {generateMenus, renderIcon} from "@/utils";
+import {generateMenus, getCacheRoutes, renderIcon} from "@/utils";
 import {System} from "@/typings/system";
 
 interface RouteState {
@@ -81,6 +81,8 @@ export const useRouteStore = defineStore({
             } else {
                 await this.initDynamicRoute()
             }
+            // 缓存路由名称
+            this.cacheRoutes = getCacheRoutes(this.dynamicRoutes)
         }
     }
 })

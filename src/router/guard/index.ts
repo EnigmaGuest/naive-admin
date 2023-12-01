@@ -6,15 +6,18 @@ import {createDynamicRouteGuard} from "@/router/guard/dynamic";
 import {useAuthStore} from "@/store";
 
 
-export function createRouterGuard(router: Router) {
+export async function createRouterGuard(router: Router) {
     router.beforeEach(async (to, from, next) => {
+        //@ts-ignore
         window.$loadingBar?.start();
         const ua = useAuthStore();
         const isDy =  await createDynamicRouteGuard(to,from,next);
         if (!isDy) return;
+        // 权限
         next();
     });
     router.afterEach(to => {
+        //@ts-ignore
         window.$loadingBar?.finish();
     });
     router.onError((error) => {

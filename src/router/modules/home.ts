@@ -1,4 +1,5 @@
 import {PageRoute} from "@/typings/route";
+import {basicLayout} from "@/router/common";
 
 const router: PageRoute =
     {
@@ -7,17 +8,19 @@ const router: PageRoute =
         redirect: '/home/index',
         meta: {
             title: '首页',
-            icon: 'mdi:monitor-dashboard',
+            icon: 'line-md:cloud-tags-loop',
+            keepAlive: true,
         },
-        component: () => import('@/layouts/index.vue'),
+        component: () => basicLayout(),
         children: [
             {
                 name: 'home_index',
                 path: '/home/index',
                 meta: {
                     title: '首页',
-                    icon: 'mdi:monitor-dashboard',
+                    icon: 'line-md:cloud-tags-loop',
                     affix: true,
+                    keepAlive: true,
                 },
                 component: () => import('@/views/home/index.vue'),
             },

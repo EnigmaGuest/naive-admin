@@ -20,7 +20,6 @@ import {useRoute, useRouter} from "vue-router";
 import {System} from "@/typings/system";
 
 const menuOptions = useRouteStore().menus
-
 const menuRef = ref()
 const route = useRoute();
 const router = useRouter();
@@ -38,11 +37,8 @@ const props = defineProps({
 })
 // 菜单点击 todo iframe 内部网页
 const clickMenuItem = (key: string, item: System.GlobalMenu) => {
-  if (item.component == 'iframe'){
-  }else {
-    if(router.currentRoute.value.name !== key){
-      router.push({name: key})
-    }
+  if(router.currentRoute.value.name !== key){
+    router.push({name: key})
   }
 }
 // 菜单展开

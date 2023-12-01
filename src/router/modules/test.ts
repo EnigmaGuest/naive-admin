@@ -16,7 +16,7 @@ const router: PageRoute =
                 path: '/test_1',
                 meta: {
                     title: '测试1',
-                    icon: 'mdi:monitor-dashboard',
+                    icon: 'line-md:menu',
                 },
                 component: () => import('@/views/test/one/index.vue'),
             },{
@@ -24,7 +24,7 @@ const router: PageRoute =
                 path: '/test_2',
                 meta: {
                     title: '测试2',
-                    icon: 'mdi:monitor-dashboard',
+                    icon: 'line-md:menu',
                 },
                 component: () => import('@/views/test/two/index.vue'),
             },
