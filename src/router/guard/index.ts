@@ -11,8 +11,8 @@ export async function createRouterGuard(router: Router) {
         //@ts-ignore
         window.$loadingBar?.start();
         const ua = useAuthStore();
-        const isDy =  await createDynamicRouteGuard(to,from,next);
-        if (!isDy) return;
+        const isCreate =  await createDynamicRouteGuard(to,from,next);
+        if (!isCreate) return;
         // 权限
         next();
     });

@@ -4,6 +4,7 @@ import {useAuthStore} from "@/store";
 import {PageRoute} from "@/typings/route";
 import {generateMenus, getCacheRoutes, renderIcon} from "@/utils";
 import {System} from "@/typings/system";
+import {nextTick} from "vue";
 
 interface RouteState {
 
@@ -25,6 +26,8 @@ interface RouteState {
     cacheRoutes: string[];
     /** 动态路由 */
     dynamicRoutes: PageRoute[];
+    /** 页面刷新的标识  用来刷新页面 true 才能显示*/
+    reloadFlag: boolean;
 }
 
 export const useRouteStore = defineStore({
@@ -35,8 +38,8 @@ export const useRouteStore = defineStore({
         routeHomeName: import.meta.env.VITE_ROUTE_HOME_PATH,
         menus: [],
         cacheRoutes: [],
-        dynamicRoutes: []
-
+        dynamicRoutes: [],
+        reloadFlag: true
     }),
     actions: {
         /** 重置路由的store */
@@ -51,14 +54,14 @@ export const useRouteStore = defineStore({
                 router.removeRoute(route.name);
             });
         },
-        handleRoute(routes:PageRoute[]) {
+        handleRoute(routes: PageRoute[]) {
             routes.forEach((route: any) => {
                 router.addRoute(route)
             })
         },
         // 初始化动态路由
         async initDynamicRoute() {
-            const { resetAuthStore } = useAuthStore()
+            const {resetAuthStore} = useAuthStore()
             // 获取动态路由
             // 添加菜单
             this.isInitRoute = true;
@@ -83,6 +86,15 @@ export const useRouteStore = defineStore({
             }
             // 缓存路由名称
             this.cacheRoutes = getCacheRoutes(this.dynamicRoutes)
+        },
+        /**
+         * 刷新页面
+         */
+        async reloadPage() {
+            this.reloadFlag = false
+            await nextTick(() => {
+                this.reloadFlag = true
+            })
         }
     }
 })

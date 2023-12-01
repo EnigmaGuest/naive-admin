@@ -16,8 +16,9 @@
           <Draggable :list="tabsList" animation="300" item-key="fullPath" class="flex">
             <template #item="{element}">
               <div class="tabs-line-scroll-item bg-#fff dark:bg-#333 flex items-center"
-                   :id="`tab_item_${element.name}`" @click.stop="onTagClick(element)" @contextmenu="onContextMenu($event, element)">
-                <div class="h-32px flex items-center justify-center"  >
+                   :id="`tab_item_${element.name}`" @click.stop="onTagClick(element)"
+                   @contextmenu="onContextMenu($event, element)">
+                <div class="h-32px flex items-center justify-center">
                   <span class="lh-14px text-14px "
                         :class="{'text-primary':state.activeTag==element.name}">{{ element.meta.title }}</span>
                   <icon-line-md:close class="text-14px ml-2px mr--6px  text-#999" v-if="!element.meta?.affix"
@@ -52,7 +53,7 @@ import {PageRoute} from "@/typings/route";
 import {useRoute, useRouter} from "vue-router";
 import elementResizeDetectorMaker from "element-resize-detector";
 import {renderIcon} from "@/utils";
-import {useTabsStore} from "@/store";
+import {useRouteStore, useTabsStore} from "@/store";
 
 const ut = useTabsStore()
 const tabsList = computed(() => ut.tabList);
@@ -86,7 +87,7 @@ const onDropdownClick = (key: ExpandKey) => {
       refreshTabs()
       break;
     case 'close':
-      closeCurrentTabs(state.currentTab??route2PageRoute(route))
+      closeCurrentTabs(state.currentTab ?? route2PageRoute(route))
       break;
     case 'closeOther':
       closeOtherTabs(route2PageRoute(route))
@@ -148,10 +149,10 @@ const onCloseTabs = (tag: PageRoute) => {
   closeCurrentTabs(tag)
 }
 
-const reload = inject('reload') as any
-const refreshTabs = () => {
-  reload && reload()
-  updateTabsScroll()
+const refreshTabs = async () => {
+  const ur = useRouteStore()
+  await ur.reloadPage()
+  await updateTabsScroll()
 }
 const closeCurrentTabs = (page: PageRoute) => {
   if (page.meta?.affix) return
@@ -343,7 +344,8 @@ window.addEventListener('scroll', onScroll, true)
   align-items: center;
   justify-content: center;
 }
-.tag-active-bg{
+
+.tag-active-bg {
   background-color: var(--n-color)
 }
 

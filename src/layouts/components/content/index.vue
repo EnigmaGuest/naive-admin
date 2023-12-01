@@ -4,7 +4,7 @@
       <router-view v-slot="{ Component, route }">
           <transition :name="theme.isAnimate?theme.animation:''" mode="out-in" :appear="true"  >
             <keep-alive :max="10">
-              <component :is="Component" :key="route.fullPath" />
+              <component :is="Component" :key="route.fullPath" v-if="routeStore.reloadFlag" />
             </keep-alive>
           </transition>
       </router-view>
