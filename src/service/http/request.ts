@@ -52,10 +52,12 @@ export default class CustomHttpInstance {
         });
 
         // 添加响应拦截器
-        this.instance.interceptors.response.use((response) => {
+        // @ts-ignore
+        this.instance.interceptors.response.use(response => {
             if (this.styleConfig.loadingBar) {
                 //@ts-ignore
                 window.$loadingBar?.finish();
+
             }
             const {codeKey, dataKey, successCode,msgKey} = this.config;
             const {status} = response;
@@ -66,10 +68,7 @@ export default class CustomHttpInstance {
                 }else {
                     return handleResult({code: resData[codeKey] , msg: resData[msgKey],type:'backend' }, null);
                 }
-                // 重新登录
-                if (REFRESH_LOGIN_CODE.includes(resData[codeKey])) {
-
-                }
+                // todo 重新登录
             } else {
                 // 不是200的错误
                 return handelBackendError(resData, this.config);
@@ -79,6 +78,7 @@ export default class CustomHttpInstance {
                 //@ts-ignore
                 window.$loadingBar?.error();
             }
+            // todo 401 重新登录
             // 超出 2xx 范围的状态码都会触发该函数。
             // 对响应错误做点什么
             return handelAxiosError(error);
