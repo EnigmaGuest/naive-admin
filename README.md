@@ -24,7 +24,9 @@
 # 安装依赖
 pnpm i
 # 启动项目
-pnpm run serve
+pnpm run dev
+# 打包项目
+pnpm run build
 ```
 # Tips
 ## svg动态颜色
@@ -32,4 +34,5 @@ pnpm run serve
 
 ### 未完成
 - [ ] keep-alive缓存未生效
-- [ ] 未添加axios
+- [x] 未添加axios
+- [ ] 常用组件
