@@ -47,7 +47,7 @@ export default defineConfig({
             primary: 'rgba(var(--primary-color))',
             primary_hover: 'rgba(var(--primary-color-hover))',
             primary_pressed: 'rgba(var(--primary-color-pressed))',
-            primary_active: 'rgbaa(var(--primary-color-active),0.1)',
+            primary_active: 'rgba(var(--primary-color-active),0.1)',
             primary_1: 'rgba(var(--primary-color1))',
             primary_2: 'rgba(var(--primary-color2))',
             primary_3: 'rgba(var(--primary-color3))',
