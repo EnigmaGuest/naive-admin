@@ -6,6 +6,22 @@
  */
 type ServiceEnvType = 'dev' | 'test' | 'prod';
 
+/** 后台服务的url配置 */
+interface ServiceUrlConfig {
+    /** 请求地址 */
+    url: string;
+
+}
+interface ServiceUrlProxyConfig extends ServiceUrlConfig {
+    /**
+     * 匹配路径的正则字符串
+     * - 用于拦截地址转发代理(任意以 /开头 + 字符串, 单个/不起作用)
+     * - 和后端请求地址的前缀无关
+     * - 有多个后端请求实例时，需要创建不同的值
+     */
+    proxy: '/api';
+
+}
 
 interface ImportMetaEnv {
 

@@ -11,18 +11,20 @@
 </template>
 <script setup lang="ts">
 
-import Layout from "@/layouts/index.vue";
 import {useAuthStore} from "@/store";
 import {useRouter} from "vue-router";
 import {reactive} from "vue";
+import {login} from "@/service";
 
 const us = useAuthStore()
 const router = useRouter()
 const state = reactive({
   name: 'home'
 })
-function goNotFund() {
-  router.push({path: '/404'})
+
+async function goNotFund() {
+  const data =  await login({phone:"admin",password:"admin"})  // 测试接口
+  console.log(data)
 }
 </script>
 

@@ -1,17 +1,29 @@
 {
   "name": "admin-main",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "A simple and easy-to-use admin template project based on Vue3, Vite3, TypeScript, NaiveUI and UnoCSS.一个简单好用的管理模板项目，基于Vue3、Vite3、TypeScript、NaiveUI和UnoCSS。",
+  "author": {
+    "name": "Enigma",
+    "email": "331139839@qq.com",
+    "url": "https://github.com/EnigmaGuest/naive-admin"
+  },
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "dev": "cross-env VITE_SERVICE_ENV=dev vite",
+    "dev:test": "cross-env VITE_SERVICE_ENV=test vite",
+    "dev:prod": "cross-env VITE_SERVICE_ENV=prod vite",
+    "build": "vue-tsc && cross-env VITE_SERVICE_ENV=prod vite build",
+    "build:dev": "cross-env VITE_SERVICE_ENV=dev vite build",
+    "build:test": "cross-env VITE_SERVICE_ENV=test vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.6.2",
     "colord": "^2.9.3",
     "dayjs": "^1.11.10",
     "echarts": "^5.4.3",
+    "element-resize-detector": "^1.2.4",
     "form-data": "^4.0.0",
     "lodash-es": "^4.17.21",
     "naive-ui": "^2.35.0",
