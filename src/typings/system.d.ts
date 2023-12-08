@@ -2,6 +2,7 @@
 import {IRouteMeta, RouteComponentType} from "@/typings/route";
 import {RouteComponent} from "vue-router";
 
+
 declare namespace System {
 
     // 菜单项

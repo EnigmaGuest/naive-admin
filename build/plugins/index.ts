@@ -8,6 +8,7 @@ import {FileSystemIconLoader} from "unplugin-icons/loaders";
 import Icons from 'unplugin-icons/vite';
 import {createSvgIconsPlugin} from "vite-plugin-svg-icons";
 import IconsResolver from 'unplugin-icons/resolver';
+import vueJsxPlugin from "@vitejs/plugin-vue-jsx";
 
 
 /**
@@ -25,6 +26,7 @@ export function createVitePlugins(viteEnv: ImportMetaEnv) {
     const vitePlugins: (Plugin | Plugin[] | PluginOption[])[] = [
         vue(),
         UnoCSS(),
+        vueJsxPlugin(),
         Components({
             dts: 'src/typings/components.d.ts',
             resolvers: [

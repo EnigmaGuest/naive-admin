@@ -62,7 +62,7 @@ function goHome() {
   if (query?.redirect) {
     router.push({path: query.redirect as string})
   } else {
-    router.push({name: 'home'})
+    router.push({name: 'home_index'})
   }
 }
 

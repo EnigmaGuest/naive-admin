@@ -6,8 +6,8 @@
           <div class="absolute right-10 top-10">
             <dark-switch/>
           </div>
-          <div class="login-item px-4 ">
-            <icon-local-login-bg class="text-500px text-primary"/>
+          <div class="login-item ">
+            <icon-local-login-bg class="text-500px text-primary  px-20px"/>
           </div>
           <div class="login-item px-4 w-360px ">
             <PageLogo/>
