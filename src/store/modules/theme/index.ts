@@ -5,33 +5,19 @@ import {darkTheme, GlobalThemeOverrides, useOsTheme} from 'naive-ui';
 import {themeSetting} from "@/setting/theme";
 import {getColorPalette} from "@/utils";
 
-const osThemeRef = useOsTheme()
+// 系统主题
+export const systemThemeRef = useOsTheme()
 export const useThemeStore = defineStore({
     id: 'theme-store',
     state: (): System.GlobalTheme => initTheme(),
     getters: {
         systemTheme(state) {
-            if (state.auto) {
-                if (osThemeRef.value === 'dark') {
-                    this.setThemeMode("dark")
-                    return darkTheme
-                } else {
-                    if (state.mode === 'dark') {
-                        this.setThemeMode("dark")
-                        return darkTheme
-                    } else {
-                        this.setThemeMode("light")
-                        return undefined
-                    }
-                }
+            if (state.mode === 'dark') {
+                this.setThemeMode("dark")
+                return darkTheme
             } else {
-                if (state.mode === 'dark') {
-                    this.setThemeMode("dark")
-                    return darkTheme
-                } else {
-                    this.setThemeMode("light")
-                    return undefined
-                }
+                this.setThemeMode("light")
+                return undefined
             }
         },
         /**
@@ -41,14 +27,14 @@ export const useThemeStore = defineStore({
          */
         getNaiveThemeOverrides(state) {
             const themeOverride: GlobalThemeOverrides = {
-                common:{
+                common: {
                     primaryColor: state.color,
-                    primaryColorHover: getColorPalette(state.color, 5) ,
+                    primaryColorHover: getColorPalette(state.color, 5),
                     primaryColorPressed: getColorPalette(state.color, 7),
                     primaryColorSuppl: state.color,
                     borderRadius: `${state.round}px`
                 },
-                LoadingBar:{
+                LoadingBar: {
                     colorLoading: state.color
                 }
             }

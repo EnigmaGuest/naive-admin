@@ -1,8 +1,5 @@
 <template>
-  <div class="h-48px flex items-center" v-if="false">
-    <n-tag>页面标签</n-tag>
-  </div>
-  <div class="tabs-view" v-else>
+  <div class="tabs-view">
     <div class="tabs-view-main">
       <div ref="tabsWrap" class="tabs-line " :class="{'tabs-line-scroll--ed':state.scrollable}">
         <div class="tabs-line-left bg-#f5f7f9  text-#666 dark:text-#999" @click="scrollLeft" v-if="state.scrollable">
@@ -71,6 +68,7 @@ const state = reactive({
   currentTab: null,
 })
 const pageIsAffix = ref(false)
+const activePage = ref(null)
 // 展开操作key
 // 刷新 关闭 关闭其他 关闭所有
 type ExpandKey = 'refresh' | 'close' | 'closeOther' | 'closeAll'
@@ -101,10 +99,15 @@ const onDropdownClick = (key: ExpandKey) => {
 }
 const tabsMenuOptions = computed(() => {
   const isDisabled = tabsList.value.length <= 1
+  let isRefresh = false
+  if (activePage.value){
+    isRefresh = activePage.value?.name != route.name
+  }
   return [
     {
       label: '刷新页面',
       key: 'refresh',
+      disabled: isRefresh,
       icon: renderIcon('line-md:backup-restore'),
     },
     {
@@ -135,6 +138,7 @@ const onTagClick = (tag: PageRoute) => {
 const onContextMenu = (e: MouseEvent, tab: PageRoute) => {
   e.preventDefault();
   e.stopPropagation();
+  activePage.value = tab
   pageIsAffix.value = tab.meta?.affix
   state.showDropdown = false;
   state.currentTab = tab;

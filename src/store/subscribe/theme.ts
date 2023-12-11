@@ -1,5 +1,7 @@
-import {useThemeStore} from "@/store";
-import { getColorPalettes, getRgbOfColor} from "@/utils";
+import {systemThemeRef, useThemeStore} from "@/store";
+import {getColorPalettes, getRgbOfColor} from "@/utils";
+import {watch} from "vue";
+
 
 export const subscribeThemeStore = () => {
     // 缓存处理
@@ -22,6 +24,18 @@ export const subscribeThemeStore = () => {
         // 主题色处理
     })
 }
+
+// 监听系统主题
+watch(systemThemeRef, (value) => {
+    const uTheme = useThemeStore();
+    if (uTheme.auto) {
+        if (value === "dark") {
+            uTheme.setThemeMode("dark")
+        } else {
+            uTheme.setThemeMode("light")
+        }
+    }
+})
 
 function addThemeColorToCss(color: string) {
     const styleCss = []
