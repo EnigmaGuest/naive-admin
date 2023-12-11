@@ -39,5 +39,6 @@ pnpm run build
 需要把下载的svg填充的颜色数值替换成 currentColor 即可 fill="currentColor"
 
 
-### 未完成
+## 项目未完成
 - [ ] 常用组件
+## 持续更新到达一个稳定版本
