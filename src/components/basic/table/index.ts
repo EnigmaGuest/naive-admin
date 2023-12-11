@@ -8,7 +8,7 @@ export interface ITableColumn {
     labelWidth?: number,
     height?: number,
     width?: number,
-    fixed?: boolean,
+    fixed?: boolean|string,
     typeOptions?: {
         switchTag?: {
             trueText?: string,

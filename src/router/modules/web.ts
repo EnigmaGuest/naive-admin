@@ -17,8 +17,7 @@ const router: PageRoute =
                 meta: {
                     title: '新开网页',
                     icon: 'line-md:menu',
-                    href: 'https://www.naiveui.com/zh-CN/os-theme',
-                    keepAlive: true,
+                    href: 'https://www.naiveui.com/zh-CN/os-theme'
                 },
                 component:  () => import('@/layouts/iframe.vue'),
 
@@ -28,8 +27,7 @@ const router: PageRoute =
                 meta: {
                     title: '新开网页2',
                     icon: 'line-md:menu',
-                    href: 'https://bilibili.com',
-                    keepAlive: true,
+                    href: 'https://bilibili.com'
                 },
                 component:  () => import('@/layouts/iframe.vue'),
             },

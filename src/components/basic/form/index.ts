@@ -36,7 +36,6 @@ interface FiledOptions {
     max?: number,
     min?: number,
     validate?: Array<FormItemRule>,
-    isSearch?: boolean,
     clearable?: boolean,
     fixedNumber?: [number, number],
 
@@ -54,6 +53,7 @@ export interface BaseFormItemProps {
     slot?: string,
     giProps?: GridItemProps;
     isFull?: boolean;
+    isSearch?: boolean,
     suffix?: string;
 }
 
@@ -81,6 +81,9 @@ export interface BaseFormProps {
     collapsedRows?: number;
     /** 是否显示操作按钮 */
     showActionGroup?: boolean;
+    /** 提交按钮文字 */
+    submitText?: string;
+    resetText?: string;
 }
 
 // 生成rules
