@@ -278,9 +278,9 @@ function onPageSizeChange(pageSize: number) {
 // 高度处理
 function getTableHeight(num?: number) {
   if (num) {
-    tableHeight.value = window.innerHeight - 122 - num - 20 - getDomHeight(headDom) - 80 - 86
+    tableHeight.value = window.innerHeight - 108 - num - 20 - getDomHeight(headDom) - 80 - 86
   } else {
-    tableHeight.value = window.innerHeight - 122 - formDom.value.height - getDomHeight(headDom) - 80 - 86
+    tableHeight.value = window.innerHeight - 108 - formDom.value.height - getDomHeight(headDom) - 80 - 86
   }
 }
 

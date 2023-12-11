@@ -1,5 +1,5 @@
 <template>
-  <n-scrollbar style="max-height:calc(100vh - 122px)" :trigger="'none'">
+  <n-scrollbar style="max-height:calc(100vh - 108px)" :trigger="'none'">
     <div class="">
         <router-view v-slot="{ Component, route }" :key="key">
           <transition :name="theme.isAnimate?theme.animation:''" mode="out-in" :appear="true"  >
