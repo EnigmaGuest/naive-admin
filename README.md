@@ -10,6 +10,8 @@
 - svg图标使用iconify进行管理
 - 可显示本地svg图标且可动态修改颜色
 - 动态标签页可左右拖动以及右键菜单
+- 自定义主题
+- 部分组件（表单，列表）抽取
 ## 项目结构
 ```bash
 ├── README.md
@@ -33,6 +35,4 @@ pnpm run build
 需要把下载的svg填充的颜色数值替换成 currentColor 即可 fill="currentColor"
 
 ### 未完成
-- [ ] keep-alive缓存未生效
-- [x] 未添加axios
 - [ ] 常用组件
