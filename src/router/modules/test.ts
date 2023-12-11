@@ -15,7 +15,7 @@ const router: PageRoute =
                 name: 'test_1',
                 path: '/test_1',
                 meta: {
-                    title: '测试1',
+                    title: '表格测试',
                     icon: 'line-md:menu',
                 },
                 component: () => import('@/views/test/one/index.vue'),
@@ -23,7 +23,7 @@ const router: PageRoute =
                 name: 'test_2',
                 path: '/test_2',
                 meta: {
-                    title: '测试2',
+                    title: '列表测试',
                     icon: 'line-md:menu',
                 },
                 component: () => import('@/views/test/two/index.vue'),

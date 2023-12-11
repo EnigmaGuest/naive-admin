@@ -21,6 +21,10 @@
 ## 项目依赖
 - [vue](https://cn.vuejs.org/)
 - 待添加
+## 项目截图
+![img.png](doc%2Fimage%2Fimg.png)
+![img_1.png](doc%2Fimage%2Fimg_1.png)
+![img_2.png](doc%2Fimage%2Fimg_2.png)
 ## 项目运行
 ```bash
 # 安装依赖
@@ -33,6 +37,7 @@ pnpm run build
 # Tips
 ## svg动态颜色
 需要把下载的svg填充的颜色数值替换成 currentColor 即可 fill="currentColor"
+
 
 ### 未完成
 - [ ] 常用组件
