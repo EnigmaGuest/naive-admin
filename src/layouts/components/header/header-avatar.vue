@@ -1,20 +1,22 @@
 <template>
   <base-dropdown-container :options="options" size="medium" @select="handleSelect" >
       <div class="flex-center cursor-pointer">
-        <n-avatar :src="avatarUrl" round></n-avatar>
+        <n-divider vertical />
+        <n-avatar :src="avatarUrl" round class="ml-6px"></n-avatar>
       </div>
   </base-dropdown-container>
 </template>
 <script setup lang="ts">
 import localAvatarUrl from  "@/assets/images/linki.png"
-import {useAuthStore} from "@/store";
+import {useAuthStore, useRouteStore} from "@/store";
 import {System} from "@/typings/system";
 import {renderIcon} from "@/utils";
 import {useDialog} from "naive-ui";
-import {goHome} from "@/router";
 import {useRouter} from "vue-router";
 import {inject} from "vue";
+import HeaderTheme from "@/layouts/components/header/header-theme.vue";
 const ua = useAuthStore()
+const ut = useRouteStore()
 const avatarUrl = ua.userInfo?.avatar || localAvatarUrl
 // 个人中心 系统设置 退出登录
 const options:System.GlobalDropdown[] = [
@@ -50,7 +52,7 @@ const handleSelect = (key: string) => {
         positiveText: '确定',
         negativeText: '取消',
         onPositiveClick: () => {
-          ua.resetAuthStore()
+          ua.loginOut()
           router.push({name: 'login'})
         }
       })

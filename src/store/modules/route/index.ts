@@ -2,9 +2,15 @@ import {defineStore} from "pinia";
 import {routeModuleList, router} from "@/router";
 import {useAuthStore} from "@/store";
 import {PageRoute} from "@/typings/route";
-import {generateMenus, getCacheRoutes, renderIcon} from "@/utils";
+import {
+    dynamicGenerateRoutes,
+    dynamicGenerateMenus,
+    getCacheRoutes,
+    groupDynamicMenu, staticPageRouteGenerateRoutes,
+    renderIcon
+} from "@/utils";
 import {System} from "@/typings/system";
-import {nextTick} from "vue";
+import {nextTick, toRaw, unref} from "vue";
 
 interface RouteState {
 
@@ -44,7 +50,7 @@ export const useRouteStore = defineStore({
     actions: {
         /** 重置路由的store */
         resetRouteStore() {
-            this.resetRoutes();
+            // this.resetRoutes();
             this.$reset();
         },
         /** 重置路由数据，保留固定路由 */
@@ -61,19 +67,31 @@ export const useRouteStore = defineStore({
         },
         // 初始化动态路由
         async initDynamicRoute() {
-            const {resetAuthStore} = useAuthStore()
-            // 获取动态路由
-            // 添加菜单
-            this.isInitRoute = true;
+            const ua = useAuthStore()
+            if (ua.isLogin){
+                // 获取动态路由
+                const menus =[]
+                Object.assign(menus,ua?.getMenus)
+                // 处理菜单
+                if (!menus.length){
+                    console.warn("没有菜单")
+                    return
+                }
+                const menuItems:IMenus[] = groupDynamicMenu(menus)
+                // 生成路由
+                if (menuItems.length){
+                    this.dynamicRoutes = dynamicGenerateRoutes(menuItems)
+                    this.menus = dynamicGenerateMenus(this.dynamicRoutes)
+                }
+            }
+
         },
         // 初始化静态路由
         async initStaticRoute() {
-            this.dynamicRoutes = routeModuleList
+            const ua = useAuthStore()
+            this.dynamicRoutes = staticPageRouteGenerateRoutes(routeModuleList,ua.getAuthRouterName)
             // 添加菜单
-            this.menus = generateMenus(this.dynamicRoutes)
-            // 添加路由
-            this.handleRoute(this.dynamicRoutes)
-            this.isInitRoute = true;
+            this.menus = dynamicGenerateMenus(this.dynamicRoutes)
         },
         /**
          * 初始化路由
@@ -84,6 +102,9 @@ export const useRouteStore = defineStore({
             } else {
                 await this.initDynamicRoute()
             }
+            // 添加路由
+            this.handleRoute(this.dynamicRoutes)
+            this.isInitRoute = true;
             // 缓存路由名称
             this.cacheRoutes = getCacheRoutes(this.dynamicRoutes)
         },

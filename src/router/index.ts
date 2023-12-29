@@ -1,15 +1,14 @@
-import {createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw} from "vue-router";
+import {createRouter,  createWebHistory} from "vue-router";
 import {App} from "vue";
 import {constantRoutes} from "@/router/common";
 import {PageRoute} from "@/typings/route";
 import {createRouterGuard} from "@/router/guard";
-import {useAuthStore} from "@/store";
 
 const {VITE_BASE_URL} = import.meta.env;
 
 export const router = createRouter({
     history: createWebHistory(VITE_BASE_URL),
-    routes: constantRoutes as any, // `routes: routes` 的缩写
+    routes: constantRoutes as any,
     strict: true,
     scrollBehavior: () => ({left: 0, top: 0}),
 })

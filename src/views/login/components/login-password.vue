@@ -46,14 +46,12 @@ const handleSubmit = async () => {
   }
 
   if (validate) {
-    await ua.login()
+
+    // todo 实际登录
+    await ua.loginByToken("123456")
     // @ts-ignore
     window.$message?.success('登录成功')
-    // todo 实际登录
-    setTimeout(() => {
-      loading.value = false
-      goHome()
-    }, 1000)
+    loading.value = false
   }
 }
 

@@ -1,35 +1,35 @@
 import {defineStore} from "pinia";
 import {SecureStorage} from "@/store/plugins";
 import {useRouteStore} from "@/store/modules/route";
+import {useTabsStore} from "@/store";
+import {usePageRouter} from "@/hooks";
 
 
-interface UserInfo {
-    /** 用户id */
-    id: string;
-    /** 用户名 */
-    name: string;
-    [x: string]: any;
-}
 interface AuthState {
     /** 用户信息 */
-    userInfo: UserInfo;
+    userInfo: AdminUserVO;
     /** 用户token */
     token: string;
 }
 
+
+
 export const useAuthStore = defineStore({
     id: 'auth-store',
     state: (): AuthState => ({
-        userInfo: {
-            id: '',
-            name: ''
-        },
+        userInfo: null,
         token: ''
     }),
     getters: {
         /** 是否登录 */
         isLogin(state) {
             return Boolean(state?.token);
+        },
+        getAuthRouterName(state) {
+            return state.userInfo?.menus?.map((item: any) => item?.routeKey)
+        },
+        getMenus(state) {
+            return state.userInfo?.menus
         }
     },
     actions: {
@@ -37,15 +37,37 @@ export const useAuthStore = defineStore({
         resetAuthStore() {
             this.$reset();
         },
-        async login(){
+        /**
+         * 通过token进行登录
+         * 登录成功后加载用户信息和路由
+         * 调整到首页
+         * @param token
+         */
+        async loginByToken(token: string) {
+            this.token = token
+            // 查询用户信息
             this.userInfo = {
-                id: '1',
-                name: 'admin'
+                id: "1",
+                phone: "18888888888",
+                username: "admin",
+                sex:'man',
+                menus:[]
             }
-            this.token = '123456'
+            const ut = useRouteStore()
+            const page = usePageRouter(false)
+            await ut.initRoute()
+            page.toHome()
+        },
+        /**
+         * 退出登录
+         */
+        loginOut() {
+            this.$reset();
+            useRouteStore().resetRouteStore()
+            useTabsStore().$reset()
         }
     },
-    persist:{
+    persist: {
         // 持久化存储 使用加密的存储方式
         storage: SecureStorage
     }
