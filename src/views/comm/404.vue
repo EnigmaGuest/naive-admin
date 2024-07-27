@@ -1,5 +1,4 @@
 <template>
-
   <app-container>
     <exception-base type="403" />
   </app-container>

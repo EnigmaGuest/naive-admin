@@ -1,6 +1,6 @@
 <template>
   <n-spin :show="state.loading" class="w-full" style="height:calc(100vh - 122px)">
-    <div class="wh-full" style="height:calc(100vh - 122px)">
+    <div class="wh-full" >
       <iframe :src="route.meta?.href as any" class="wh-full box-border " ref="iframeRef"></iframe>
     </div>
   </n-spin>

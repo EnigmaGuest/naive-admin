@@ -1,5 +1,5 @@
 <template>
-  <div :style="style" class="w-full flex-col " :class="{'bg-#fff dark:bg-dark':!props.transparent}">
+  <div :style="style" class="wh-full flex-col " :class="{'bg-#fff dark:bg-dark':!props.transparent}">
     <slot></slot>
   </div>
 
@@ -32,11 +32,11 @@ const props = defineProps({
 const theme =  useThemeStore()
 const style = computed(() => {
   const style = {
-    height: props.height
+    // height: props.height
   } as any
 
   if (props.round){
-    style.borderRadius= theme.round+'px'
+    style.borderRadius= theme.naive.borderRadius+'px'
   }
   return style
 })

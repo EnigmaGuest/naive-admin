@@ -1,14 +1,30 @@
 <template>
-  <div>
-    <BaseTable :columns="columns" :data="pageState.tableData" :get-data="onGetData"  :search-form-items="formFiledList" is-add-action title="表格" desc="表格" @add="onAdd" @edit="onEdit" @delete="onDelete"/>
-
+  <div class="flex-col h-full gap-12px">
+    <n-card title="" size="small">
+      <n-collapse>
+        <n-collapse-item title="搜索条件">
+          <div>可以</div>
+        </n-collapse-item>
+      </n-collapse>
+    </n-card>
+    <n-card class="flex-1 overflow-hidden" title="数据" size="small">
+      <NDataTable :columns="columns"
+                  :data="pageState.tableData"
+                  size="small"
+                  :scroll-x="962"
+                  flex-height
+                  :loading="pageState.loading"
+                  class="h-full"
+      ></NDataTable>
+    </n-card>   
   </div>
 </template>
 <script lang="ts" setup>
 import BaseTable from "@/components/basic/table/index.vue";
-import {reactive,ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {BaseFormItemProps} from "@/components/basic/form/index";
 import {ITableColumn} from "@/components/basic/table/index";
+
 const pageInfo = reactive({
   path: "/system/role/menu",
   name: "角色和菜单关联",
@@ -23,13 +39,13 @@ const pageState = reactive({
 const formRef = ref()
 const formData = reactive({})
 const formFiledList: Array<BaseFormItemProps> = [
-  {field: 'roleId', label: '角色id', filedType:'string',isSearch: false,required:true},
-  {field: 'menuId', label: '菜单ID', filedType:'string',isSearch: false,required:true},
+  {field: 'roleId', label: '角色id', filedType: 'string', isSearch: false, required: true},
+  {field: 'menuId', label: '菜单ID', filedType: 'string', isSearch: false, required: true},
 ]
 
-const columns: Array<ITableColumn> = [
-  {field: 'roleId', title: '角色id', type:'string'},
-  {field: 'menuId', title: '菜单ID', type:'string'},
+const columns = [
+  {key: 'roleId', title: '角色id', type: 'string'},
+  {key: 'menuId', title: '菜单ID', type: 'string'},
 ]
 
 /**
@@ -39,7 +55,13 @@ const columns: Array<ITableColumn> = [
 async function onGetData(params?: any) {
   pageState.loading = true
   // 接口调用，将后台的数据赋值给tableData
-  pageState.tableData =  []
+  pageState.tableData = []
+  for (let i = 0; i < 20; i++) {
+    pageState.tableData.push({
+      roleId: `${i}`,
+      menuId: `${i}`,
+    })
+  }
   pageState.loading = false
 }
 
@@ -71,4 +93,8 @@ async function onDelete(row: any) {
   window.$message.success("删除成功")
   await onGetData()
 }
+
+onMounted(() => {
+  onGetData()
+})
 </script>
