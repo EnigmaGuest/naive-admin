@@ -78,6 +78,8 @@ declare namespace System {
       collapsedWidth: number;
       // 是否深色
       inverted: boolean;
+      // 是否显示折叠
+      showCollapse: boolean;
     }
     // 动画配置
     animate: {
@@ -86,14 +88,15 @@ declare namespace System {
       // 动画类型
       /**
        * 过渡动画类型
-       * - zoom-fade: 渐变
-       * - zoom-out: 闪现
-       * - fade-slide: 滑动
-       * - fade: 消退
-       * - fade-bottom: 底部消退
-       * - fade-scale: 缩放消退
+       * fade-slide 滑动
+       * fade 淡入淡出
+       * fade-bottom 底部消退
+       * fade-scale 缩放消退
+       * zoom-fade 渐变
+       * zoom-out 闪现
+       * none 无动画
        */
-      type: 'fade' | 'fade-slide' | 'fade-bottom' | 'fade-scale' | 'zoom-fade' | 'zoom-out' | 'none';
+      type: 'fade-slide' | 'fade' | 'fade-bottom' | 'fade-scale' | 'zoom-fade' | 'zoom-out' | 'none';
     }
     // 底部配置
     footer: {

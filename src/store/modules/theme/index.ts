@@ -9,9 +9,7 @@ import {getColorPalette, getRgbOfColor} from "@/utils";
 export const systemThemeRef = useOsTheme()
 export const useThemeStore = defineStore({
   id: 'theme-store',
-  state: (): System.GlobalTheme => {
-    return themeSetting
-  },
+  state: (): System.GlobalTheme => initTheme(),
   getters: {
     systemTheme(state) {
       if (state.mode === 'dark') {

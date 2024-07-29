@@ -43,6 +43,7 @@ export default defineConfig({
     'ellipsis-text': 'nowrap-hidden text-ellipsis',
     'transition-base': 'transition-all duration-300 ease-in-out',
     'bg-container': 'bg-white dark:bg-dark',
+    'bg-layout': 'bg-#f5f7f9 dark:bg-#101014 ',
   },
   theme: {
     colors: {

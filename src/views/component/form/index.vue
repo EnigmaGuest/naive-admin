@@ -1,4 +1,5 @@
 <template>
+  <div>
     <n-card title="表单配置" class="mb-12px">
       <form :data="formSetting">
         <n-grid x-gap="12" :cols="6">
@@ -43,6 +44,7 @@
                 :grid-props="{cols:formSetting.cols}" @submit="onSubmit">
       </BaseForm>
     </n-card>
+  </div>
 </template>
 <script setup lang="ts">
 import BaseForm from "@/components/basic/form/index.vue"

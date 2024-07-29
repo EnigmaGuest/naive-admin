@@ -1,9 +1,7 @@
 <template>
-  <n-spin :show="state.loading" class="w-full" style="height:calc(100vh - 122px)">
-    <div class="wh-full" >
-      <iframe :src="route.meta?.href as any" class="wh-full box-border " ref="iframeRef"></iframe>
-    </div>
-  </n-spin>
+  <div class="flex-1 wh-full flex-col " >
+    <iframe :src="route.meta?.href as any" class="flex-1 overflow-hidden  box-border " ref="iframeRef"></iframe>
+  </div>
 </template>
 <script setup lang="ts">
 import {computed, onMounted, reactive, ref} from "vue";

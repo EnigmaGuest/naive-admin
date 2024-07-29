@@ -1,22 +1,23 @@
 import {createApp} from 'vue'
 import App from './App.vue'
 import {router, setupRouter} from "@/router";
-import {setupAssets} from "@/init";
+import {setupAssets, setupLoading} from "@/init";
 import {setupStore} from "@/store";
 
 
 async function initApp() {
 
-    const app = createApp(App);
-    // 引入unocss css
-    setupAssets();
+  setupLoading()
+  
+  const app = createApp(App);
+  // 引入unocss css
+  setupAssets();
 
-    setupStore(app);
+  setupStore(app);
 
-    await setupRouter(app);
+  await setupRouter(app);
 
-
-    app.mount('#app')
+  app.mount('#app')
 }
 
 void initApp()

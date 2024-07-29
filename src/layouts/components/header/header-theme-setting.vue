@@ -128,6 +128,11 @@
           <p class="text-16px ">展开宽度</p>
           <n-input-number class="w-120px text-center" v-model:value="theme.sider.width" :min="200"/>
         </div>
+        <div class="flex items-center justify-between mt-12px">
+          <p class="text-16px ">显示折叠操作条</p>
+          <n-switch v-model:value="theme.sider.showCollapse">
+          </n-switch>
+        </div>
         <n-divider><p>动画配置</p></n-divider>
         <div class="flex items-center justify-between">
           <p class="text-16px ">过渡动画</p>
@@ -184,20 +189,24 @@ const drawerShow = ref(false)
 const theme = useThemeStore()
 /**
  * 过渡动画类型
- * - zoom-fade: 渐变
- * - zoom-out: 闪现
- * - fade-slide: 滑动
- * - fade: 消退
- * - fade-bottom: 底部消退
- * - fade-scale: 缩放消退
+ * 过渡动画类型
+ * fade-slide 滑动
+ * fade 淡入淡出
+ * fade-bottom 底部消退
+ * fade-scale 缩放消退
+ * zoom-fade 渐变
+ * zoom-out 闪现
+ * none 无动画
  */
+
 const animationOptions = [
-  {label: '渐变', value: 'zoom-fade'},
-  {label: '闪现', value: 'zoom-out'},
   {label: '滑动', value: 'fade-slide'},
-  {label: '消退', value: 'fade'},
+  {label: '淡入淡出', value: 'fade'},
   {label: '底部消退', value: 'fade-bottom'},
   {label: '缩放消退', value: 'fade-scale'},
+  {label: '渐变', value: 'zoom-fade'},
+  {label: '闪现', value: 'zoom-out'},
+  {label: '无动画', value: 'none'}
 ]
 const syncPrimary = ref(false)
 

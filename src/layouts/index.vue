@@ -1,5 +1,5 @@
 <template>
-  <n-layout has-sider class="bg-#f5f7f9 dark:bg-#101014 transition-all-300 layout">
+  <n-layout has-sider class="bg-layout layout">
     <n-layout-sider
       class="layout-side "
       :collapsed-width="theme.sider.collapsedWidth"
@@ -8,16 +8,18 @@
       :width="theme.sider.width"
       :inverted="theme.sider.inverted"
       :native-scrollbar="false"
+      :show-trigger="theme.sider.showCollapse&&'bar'"
       @collapse="theme.setSiderCollapsed(true)"
       @expand="theme.setSiderCollapsed(false)"
     >
-      <page-logo :collapsed="theme.sider.collapsed" :height="theme.menu.headerHeight"/>
-      <page-menu :collapsed="theme.sider.collapsed" :collapsed-width="theme.sider.collapsedWidth"
+      <page-logo class="logo" :collapsed="theme.sider.collapsed" :height="theme.menu.headerHeight"/>
+      <page-menu class="menu" :style="{top:`${theme.menu.headerHeight}px`}" :collapsed="theme.sider.collapsed"
+                 :collapsed-width="theme.sider.collapsedWidth"
                  :inverted="theme.sider.inverted"/>
     </n-layout-sider>
-    <n-layout style="height: 100vh" class="bg-#f5f7f9 dark:bg-#101014">
+    <n-layout style="height: 100vh" class="bg-layout">
       <n-layout-header
-        class="bg-#f5f7f9 dark:bg-#101014 " :class="[isCard&&'px-12px']"
+        class="bg-layout " :class="[isCard&&'px-12px']"
         :style="{height: theme.menu.tabsHeight + theme.menu.headerHeight+'px'}"
       >
         <div class="flex-col">
@@ -33,7 +35,7 @@
         </div>
       </n-layout-header>
       <n-layout position="absolute" :native-scrollbar="false" :style="[pageContentStyle]"
-                class="bg-#f5f7f9 dark:bg-#101014">
+                class="bg-layout">
         <page-content/>
       </n-layout>
       <PageFooter v-if="theme.footer.show" :is-card="isCard" :height="theme.footer.height" :round="theme.layout.round"/>
@@ -74,7 +76,6 @@ const pageContentStyle = computed(() => {
 .n-scrollbar > .n-scrollbar-container > .n-scrollbar-content {
   height: 100%;
 }
-
 </style>
 
 <style scoped lang="scss">
@@ -108,7 +109,19 @@ const pageContentStyle = computed(() => {
 .layout-side {
   z-index: 99;
   box-shadow: 2px 0 8px 0 rgb(29, 35, 41, 0.05);
+  position: relative;
 
+  & .logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  & .menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
 }
 
 

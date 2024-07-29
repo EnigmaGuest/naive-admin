@@ -41,11 +41,12 @@ export const themeSetting: System.GlobalTheme = {
     collapsed: false,
     width: 220,
     collapsedWidth: 64,
-    inverted: false
+    inverted: false,
+    showCollapse: true
   },
   animate: {
     enable: true,
-    type: "fade"
+    type: "fade-slide"
   },
   footer: {
     show: true,
