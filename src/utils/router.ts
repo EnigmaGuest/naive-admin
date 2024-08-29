@@ -100,7 +100,7 @@ function singleDynamicMenuToRoute(menu: IMenus): PageRoute[] {
 
 function dynamicGetSelfComponent(path: string) {
     let modules = import.meta.glob('@/views/**/*.vue')
-    return modules[`/src/views${path}/index.vue`]
+    return modules[`/src/views/${path}.vue`]
 }
 
 export function isSingleRoute(page: PageRoute) {

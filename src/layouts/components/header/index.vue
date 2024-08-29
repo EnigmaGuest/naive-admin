@@ -4,14 +4,17 @@
       <page-menu :mode="'horizontal'"/>
     </div>
     <n-space align="center" v-else>
-      <header-menu-collapse :collapsed="props.collapsed" @click="(e:boolean)=>{ emits('update:collapsed',e) }"
-                            v-if="props.showCollapsed"/>
-      <!--   todo 可扩展   -->
-      <div class="h-full flex-center" v-else>
-        <!--        <n-button round secondary type="primary">常用</n-button>-->
-      </div>
-      <!--   面包屑   -->
-      <header-breadcrumb v-if="props.showBreadcrumb" :show-icon="props.showBreadcrumbIcon"/>
+      <template v-if="theme.menu.layout === 'base'">
+        <header-menu-collapse :collapsed="props.collapsed" @click="(e:boolean)=>{ emits('update:collapsed',e) }"
+                              v-if="props.showCollapsed"/>
+        <!--   todo 可扩展   -->
+        <div class="h-full flex-center" v-else>
+          <!--        <n-button round secondary type="primary">常用</n-button>-->
+        </div>
+        <!--   面包屑   -->
+        <header-breadcrumb v-if="props.showBreadcrumb" :show-icon="props.showBreadcrumbIcon"/>
+      </template>
+       <header-app-title v-else />
     </n-space>
     <div class="flex h-full">
       <header-github/>
@@ -28,10 +31,11 @@ import HeaderMenuCollapse from "@/layouts/components/header/header-menu-collapse
 import HeaderBreadcrumb from "@/layouts/components/header/header-breadcrumb.vue";
 import HeaderAvatar from "@/layouts/components/header/header-avatar.vue";
 import HeaderTheme from "@/layouts/components/header/header-theme.vue";
-import {computed} from "vue";
+import {computed, PropType} from "vue";
 import {useThemeStore} from "@/store";
 import HeaderGithub from "@/layouts/components/header/header-github.vue";
 import HeaderThemeSetting from "@/layouts/components/header/header-theme-setting.vue";
+import HeaderAppTitle from "@/layouts/components/header/header-app-title.vue";
 
 const props = defineProps({
   collapsed: {
@@ -53,6 +57,11 @@ const props = defineProps({
   showBreadcrumbIcon: {
     type: Boolean,
     default: true
+  },
+  // base 基本布局 app 应用布局
+  layout: {
+    type: String as PropType<'base' | 'app'>,
+    default: 'base'
   }
 })
 const emits = defineEmits(['update:collapsed', 'clickMenuItem']);

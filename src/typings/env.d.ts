@@ -1,3 +1,10 @@
+// ts 解析vue文件
+declare module '*.vue' {
+  import type { DefineComponent } from 'vue'
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
+
 /**
  * @description: 环境变量
  * -dev: 开发环境

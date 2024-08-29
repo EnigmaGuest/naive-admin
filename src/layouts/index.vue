@@ -67,7 +67,7 @@ const pageContentStyle = computed(() => {
     top += padding;
   }
   style.top = `${top}px`;
-  style.bottom = `${bottom + padding}px`;
+  style.bottom = theme.footer.show?`${bottom + padding}px`:'0';
   return style;
 });
 </script>

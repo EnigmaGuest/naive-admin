@@ -55,9 +55,11 @@ declare namespace System {
     }
     // 菜单配置
     menu: {
-      // 显示面包屑
+      // 菜单布局样式 base：基本布局 app：应用布局
+      layout:'base'|'app'
+      // base 显示面包屑
       showBreadcrumb: boolean;
-      // 显示面包屑图标
+      // base 显示面包屑图标
       showBreadcrumbIcon: boolean;
       // 头部高度 44
       headerHeight: number;

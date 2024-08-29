@@ -30,6 +30,7 @@ export const themeSetting: System.GlobalTheme = {
       '#10b981']
   },
   menu: {
+    layout: "base",
     showBreadcrumb: true,
     showBreadcrumbIcon: true,
     headerHeight: 56,

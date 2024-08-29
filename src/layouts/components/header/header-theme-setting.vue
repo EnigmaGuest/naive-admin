@@ -61,18 +61,25 @@
         </div>
         <n-divider><p>菜单配置</p></n-divider>
         <div class="flex items-center justify-between">
+          <p class="text-16px">菜单布局</p>
+          <n-select class="w-120px text-center" v-model:value="theme.menu.layout" :options="menuLayoutOptions"
+                    placeholder="选择布局"></n-select>
+        </div>
+        <template v-if="theme.menu.layout === 'base'">
+          <div class="flex items-center justify-between mt-12px">
+            <p class="text-16px ">显示面包屑</p>
+            <n-switch v-model:value="theme.menu.showBreadcrumb">
+            </n-switch>
+          </div>
+          <div class="flex items-center justify-between mt-12px">
+            <p class="text-16px ">显示面包屑图标</p>
+            <n-switch v-model:value="theme.menu.showBreadcrumbIcon">
+            </n-switch>
+          </div>
+        </template>
+        <div class="flex items-center justify-between mt-12px">
           <p class="text-16px">头部高度</p>
           <n-input-number class="w-120px text-center" v-model:value="theme.menu.headerHeight" :min="44"/>
-        </div>
-        <div class="flex items-center justify-between mt-12px">
-          <p class="text-16px ">显示面包屑</p>
-          <n-switch v-model:value="theme.menu.showBreadcrumb">
-          </n-switch>
-        </div>
-        <div class="flex items-center justify-between mt-12px">
-          <p class="text-16px ">显示面包屑图标</p>
-          <n-switch v-model:value="theme.menu.showBreadcrumbIcon">
-          </n-switch>
         </div>
         <div class="flex items-center justify-between mt-12px">
           <p class="text-16px ">显示标签栏</p>
@@ -208,7 +215,11 @@ const animationOptions = [
   {label: '闪现', value: 'zoom-out'},
   {label: '无动画', value: 'none'}
 ]
-const syncPrimary = ref(false)
+
+const menuLayoutOptions = [
+  {label: '基本布局', value: 'base'},
+  {label: '应用布局', value: 'app'}
+]
 
 </script>
 

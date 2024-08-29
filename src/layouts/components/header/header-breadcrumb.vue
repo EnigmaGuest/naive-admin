@@ -52,7 +52,6 @@ const generateBreadcrumbList = (matched: RouteLocationMatched[] | any) => {
 const breadcrumbList = computed(() => generateBreadcrumbList(route.matched))
 
 const breadcrumbClick = (item:any) => {
-  console.log(item)
   if (item !== route.name) {
     router.push({name: item})
   }
